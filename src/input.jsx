@@ -5,9 +5,9 @@ class Input extends React.Component {
     constructor(props)  {
     super(props);
 
-        this.state={
-            checked:false
-        }
+        // this.state={
+        //     checked:false
+        // }
 
         this.dateExpand = this.dateExpand.bind(this);
         this.magExpand - this.magExpand.bind(this);
@@ -133,8 +133,7 @@ class Input extends React.Component {
                                 name='sort' 
                                 value={this.props.sort} 
                                 onChange={this.props.onChange} >   
-                                    <option value='orderby=time' > Most Recent </option>
-                                    <option value='orderby=time-asc' > Inverse Time  </option>                               
+                                    <option value='orderby=time' > Most Recent </option>                              
                                     <option value='orderby=magnitude' > Magnitude </option>
                                     <option value='orderby=magnitude-asc' > Inverse Magnitude </option>
 

@@ -4976,8 +4976,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
             latLng: '',
             lat: '',
             lng: '',
-            // currentLocal: '',
-            isChecked: false,
             sort: 'orderby=time',
             sortBy: 'Most Recent',
             listReturn: 10,
@@ -4998,7 +4996,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
         this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleCheck = this.handleCheck.bind(this);
     }
 
     componentDidMount() {
@@ -5017,12 +5014,13 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         });
     }
 
-    handleCheck() {
-        let isChecked = document.getElementById('checkbox1').checked;
-
-        isChecked === false ? this.setState({ isChecked: false, maxMagnitude: '&maxMagnitude=5', minmagnitude: '&minmagnitude=5' }) : this.setState({ isChecked: true, maxMagnitude: '&maxMagnitude=3', minmagnitude: '&minmagnitude=3' });
-
-        this.setState({ quakeList: this.state.quakeList });
+    getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        console.log(position.coords);
     }
 
     handleClick(event) {
@@ -5036,12 +5034,11 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
         let minMagnitude = '&' + this.state.minMagnitude;
         let sort = '&' + this.state.sort;
 
-        let isChecked = this.state.isChecked;
         let quakeList = [];
         let sortBy;
         let n = this.state.listReturn;
 
-        this.state.sort === 'orderby=magnitude' ? sortBy = 'Highest Magnitude' : this.state.sort === 'orderby=magnitude-asc' ? sortBy = 'Lowest Magnitude' : this.state.sort === 'orderby=time' ? sortBy = 'Most Recent' : sortBy = 'Furthest Ago';
+        this.state.sort === 'orderby=magnitude' ? sortBy = 'Highest Magnitude' : this.state.sort === 'orderby=magnitude-asc' ? sortBy = 'Lowest Magnitude' : sortBy = 'Most Recent';
 
         let update;
         let startDateText = this.state.startDate;
@@ -5056,12 +5053,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     }
 
     handleMap(index) {
-        // Get the coordinates of the current position.
-        //    navigator.geolocation.getCurrentPosition(function(position) {
-        //                 let lat = position.coords.latitude; 
-        //                 let lng = position.coords.longitude;
-        //                 var latLng = ( lat + ',' + lng );
-        //                 })
         let maps = document.getElementById('map-card');
         maps.style.display = 'block';
 
@@ -5118,8 +5109,6 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
                             { className: 'card-body' },
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__input__["a" /* default */], { onClick: this.handleClick,
                                 onChange: this.handleChange,
-                                onCheck: this.handleCheck,
-                                check: this.state.isChecked,
                                 sort: this.state.sort,
                                 maxMag: this.state.maxMagnitude,
                                 minMag: this.state.minMagnitude,
@@ -23108,9 +23097,9 @@ class Input extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            checked: false
-        };
+        // this.state={
+        //     checked:false
+        // }
 
         this.dateExpand = this.dateExpand.bind(this);
         this.magExpand - this.magExpand.bind(this);
@@ -23349,11 +23338,6 @@ class Input extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                                 'option',
                                 { value: 'orderby=time' },
                                 ' Most Recent '
-                            ),
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                                'option',
-                                { value: 'orderby=time-asc' },
-                                ' Inverse Time  '
                             ),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 'option',

@@ -29,8 +29,6 @@ class App extends Component {
             latLng: '',
             lat: '',
             lng: '',
-            // currentLocal: '',
-            isChecked: false,
             sort:'orderby=time',
             sortBy: 'Most Recent',
             listReturn: 10,
@@ -54,7 +52,6 @@ class App extends Component {
 
         this.handleClick= this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleCheck = this.handleCheck.bind(this);
     }
 
 componentDidMount() {
@@ -73,14 +70,15 @@ handleChange(event)  {
     })
 }
 
-handleCheck()   {
-    let isChecked = document.getElementById('checkbox1').checked;
+getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+        console.log(position.coords)
+    }
 
-    isChecked === false ? this.setState({isChecked: false, maxMagnitude: '&maxMagnitude=5', minmagnitude: '&minmagnitude=5'}) : 
-                                this.setState({isChecked: true, maxMagnitude: '&maxMagnitude=3', minmagnitude: '&minmagnitude=3'})
-    
-    this.setState({ quakeList: this.state.quakeList })
-}
 
 
 handleClick(event) {
@@ -94,17 +92,14 @@ handleClick(event) {
     let minMagnitude= '&' + this.state.minMagnitude;
     let sort = '&' + this.state.sort;
 
-    let isChecked = this.state.isChecked;
     let quakeList = [ ];
     let sortBy;
     let n = this.state.listReturn;
   
     this.state.sort === 'orderby=magnitude' ? sortBy = 'Highest Magnitude' :
         this.state.sort === 'orderby=magnitude-asc' ? sortBy = 'Lowest Magnitude' :
-             this.state.sort === 'orderby=time' ? sortBy = 'Most Recent' :
-                 sortBy = 'Furthest Ago' ; 
-     
-                    
+             sortBy = 'Most Recent';
+
     let update;
     let startDateText = this.state.startDate;
     startDateText === '' ? update = 'Since ' + this.state.dateUpdated : update = 'Since ' + this.state.startDate;  
@@ -121,12 +116,6 @@ handleClick(event) {
 }
 
 handleMap(index) {
-// Get the coordinates of the current position.
-//    navigator.geolocation.getCurrentPosition(function(position) {
-//                 let lat = position.coords.latitude; 
-//                 let lng = position.coords.longitude;
-//                 var latLng = ( lat + ',' + lng );
-//                 })
     let maps= document.getElementById('map-card');
     maps.style.display = 'block';
 
@@ -160,8 +149,6 @@ render(){
             <div className='card-body'>
                 <Input onClick={ this.handleClick } 
                        onChange={ this.handleChange }
-                       onCheck={ this.handleCheck }
-                       check={ this.state.isChecked }
                        sort={ this.state.sort }
                        maxMag={ this.state.maxMagnitude }
                        minMag={ this.state.minMagnitude } 
