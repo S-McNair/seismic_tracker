@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+/* body {
+  background: #136a8a; 
+  background: -webkit-linear-gradient(to left, #b3e6eb, #6281c9);
+  background: linear-gradient(to left, #b3e6eb, #6281c9);
+  } */
+
+    
+  body {
+    background: #136a8a; /*fallback for old browsers*/
+    background: -webkit-linear-gradient(to left, #ebd8b3, #e43905);
+    background: linear-gradient(to left, #e9a354, #e43905);
+    }
+  
+  .no-padding {
+    padding: 0 !important;
+  }
+  
+  .no-margin {
+    margin: 0 !important;
+  }
+  
+  .white {
+    color: white !important;
+  }
+
+  ul, li {
+    list-style-type: none; /*removes bullet point from list items*/
+}
+
+  .input-form {
+    height: 200px
+  }
+
+  .five-and-over  {
+    background-color: rgb(243, 89, 89);
+    color: white;
+  }
+
+  .four-five  {
+    background-color: orangered
+  }
+
+  .three-four {
+    background-color: orange
+  }
+
+  .two-three  {
+    background-color: yellow
+  }
+
+  .one-two  {
+    background-color: rgb(139, 187, 139)
+  }
+
+  .under-one  {
+    background-color: rgb(173, 194, 236)
+  }
+
+ #listReturn {
+    text-align: center
+  }
+  /* 
+    background: #136a8a; /* fallback for old browsers *//*
+    background: -webkit-linear-gradient(to left, #b3e6eb, #6281c9);
+    background: linear-gradient(to left, #b3e6eb, #6281c9);
+
+  */
+
+
+
