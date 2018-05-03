@@ -105,6 +105,8 @@ handleClick(event) {
     startDateText === '' ? update = 'Since ' + this.state.dateUpdated : update = 'Since ' + this.state.startDate;  
     console.log(update)  
     this.setState({ updateText: update, sortBy: sortBy })
+
+    
                         
     axios
     .get(url + updatedAfter + startDate + endDate + maxMagnitude + minMagnitude + sort)
